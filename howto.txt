@@ -1,0 +1,94 @@
+STEP 1: Set Up Google Sheets API Access (Service Account Method):
+
+1. Go to Google Cloud Console (https://console.cloud.google.com/)
+
+2. Create a Project:
+    Click the top-left project dropdown
+    Hit “New Project”
+    Name it something like Sales Sync Automation
+    Click “Create”, then select the project
+
+ 3. Enable Sheets API:
+    In the left sidebar: go to “APIs & Services” → “Library”
+    Search “Google Sheets API”
+    Click it, then hit Enable
+    Search “Google Drive API”
+    Click it, then hit Enable
+
+ 4. Create Service Account:
+    Go to “APIs & Services” → “Credentials”
+    Click “Create Credentials” → “Service Account”
+    Fill these:
+        Name: sheet-bot
+        ID: auto-filled
+        Description: Script to sync data
+Hit Create & Continue
+Skip the role section (unless required) → Hit Done
+
+5. Generate JSON Key:
+    After creating the service account, click its name
+    Go to the “Keys” tab
+    Click “Add Key” → “Create New Key” → Choose JSON
+Your browser will download a .json file — keep this safe.
+It’s your private access token.
+
+6. Share Your Google Sheet With the Service Account:
+    Open your test sheet (Sales Sync Test)
+    Click “Share”
+    From your JSON, copy the client_email (something like sheet-bot@project-name.iam.gserviceaccount.com)
+    Paste it in the email field of the Share box
+    Give it Editor access
+    Hit Send
+This is CRUCIAL — otherwise your bot will get a “Permission Denied” slap.
+
+
+=========================================================================
+💾 At this point:
+    You have a fresh project
+    Sheets API is active
+    A JSON key lives in your VS Code folder
+    Your Google Sheet trusts your script
+=========================================================================
+
+
+
+
+CODING STEPS:
+
+1. Import Dependencies:
+    import pandas as pd
+    import gspread
+    from oauth2client.service_account import ServiceAccountCredentials
+    from datetime import datetime
+    import numpy as np
+
+2. Define the scope and credentials:
+    scope =[
+        "https://www.googleapis.com/auth/spreadsheets",
+        "https://www.googleapis.com/auth/drive"
+    ]
+
+    creds = ServiceAccountCredentials.from_json_keyfile_name(
+        'sales-sync-automation-dbe6b9c8399b.json', 
+        scope
+    )
+
+3. Authorize the client and define sheet name:
+    client = gspread.authorize(creds)
+    mySheet = "Sales Sync Test"
+
+4. Get/Open the Google Sheet:
+    sheet = client.open(mySheet).sheet1
+
+5. Manipulate sheet as desired (Date Cleaning & Standardizing)
+
+6. Update sheet with the newly created DF:
+    sheet.update([df.columns.values.tolist()] + df.values.tolist())
+
+7. To add additional rows (EG. Timestamp):
+    # calculate where to place the sync timestamp
+    last_row = len(df) + 3  # +3 add a few rows for space
+    sheet.update_cell(last_row, 2, datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+
+
+    
