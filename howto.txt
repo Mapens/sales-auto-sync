@@ -29,7 +29,7 @@ Skip the role section (unless required) → Hit Done
     After creating the service account, click its name
     Go to the “Keys” tab
     Click “Add Key” → “Create New Key” → Choose JSON
-Your browser will download a .json file — keep this safe.
+Your browser will download a .json file. Keep this safe.
 It’s your private access token.
 
 6. Share Your Google Sheet With the Service Account:
@@ -39,7 +39,7 @@ It’s your private access token.
     Paste it in the email field of the Share box
     Give it Editor access
     Hit Send
-This is CRUCIAL — otherwise your bot will get a “Permission Denied” slap.
+This is CRUCIAL; otherwise your bot will get a “Permission Denied” slap.
 
 
 =========================================================================
@@ -69,7 +69,7 @@ CODING STEPS:
     ]
 
     creds = ServiceAccountCredentials.from_json_keyfile_name(
-        'sales-sync-automation-dbe6b9c8399b.json', 
+        'json-file-name', 
         scope
     )
 
