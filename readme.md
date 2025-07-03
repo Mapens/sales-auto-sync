@@ -19,13 +19,22 @@ It:
 
 ---
 
+Screenshots:
+Cleaned Dataset Main Tab
+![Main Tab](assets/Cleaned-Dataset-Main-Tab.jpg)
+
+### Cleaned-Dataset-Summary-Tab
+![Summary Tab](assets/Cleaned-Dataset-Summary-Tabe.jpg)
+
+### Clean Dataset
+![Clean Dataset](assets/df-clean.jpg)
+
+### Dirty Dataset
+![Dirty Dataset](assets/df-dirty.jpg)
+
+---
+
 ## 📁 Sample File
-
-```csv
-Date,Product,Quantity,Revenue
-2025-06-20,Widget A,5,5000
-...
-
 
 Ideal Use Cases:
 Retail shops
@@ -37,7 +46,6 @@ Coming Soon:
 Automatic email notifications after sync
 Google Drive file creation
 Dashboard version with metrics
-
 
 Author:
 https://www.linkedin.com/in/onwuagba-anthony/
